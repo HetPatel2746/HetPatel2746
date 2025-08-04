@@ -1,0 +1,19 @@
+import numpy as np
+from scipy.sparse import random as sparse_random
+from scipy.sparse.linalg import eigs
+
+# Create a large sparse matrix (example: 1000x1000 with 0.1% density)
+n = 1000
+density = 0.001
+sparse_matrix = sparse_random(n, n, density=density, format='csr', dtype=float)
+
+# Compute top 5 eigenvalues and eigenvectors
+k = 5
+eigenvalues, eigenvectors = eigs(sparse_matrix, k=k, which='LM')  # LM = Largest Magnitude
+
+# Convert eigenvalues to real if matrix is symmetric
+eigenvalues = np.real(eigenvalues)
+eigenvectors = np.real(eigenvectors)
+
+print("Eigenvalues:\n", eigenvalues)
+print("Eigenvectors shape:", eigenvectors.shape)
