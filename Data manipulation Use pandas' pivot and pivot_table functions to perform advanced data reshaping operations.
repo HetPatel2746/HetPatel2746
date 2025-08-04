@@ -1,0 +1,49 @@
+import pandas as pd
+
+
+# 1. Sample Data
+
+data = {
+    'Date': ['2025-08-01', '2025-08-01', '2025-08-02', '2025-08-02', '2025-08-02'],
+    'City': ['Delhi', 'Delhi', 'Mumbai', 'Mumbai', 'Delhi'],
+    'Temperature': [34, 36, 29, 30, 33],
+    'Humidity': [60, 65, 70, 68, 64]
+}
+
+df = pd.DataFrame(data)
+print("Original DataFrame:\n", df)
+
+
+# 2. Using pivot()
+
+    pivot_df = df.pivot(index='Date', columns='City', values='Temperature')
+    print("\nPivoted DataFrame (Temperature by Date & City):\n", pivot_df)
+except ValueError as e:
+    print("\nError with pivot():", e)
+
+
+# 3. Using pivot_table()
+
+pivot_table_df = pd.pivot_table(
+    df,
+    values='Temperature',
+    index='Date',
+    columns='City',
+    aggfunc='mean',      # Compute average temperature
+    fill_value=0         # Replace NaN with 0
+)
+
+print("\nPivot Table (Average Temperature):\n", pivot_table_df)
+
+
+advanced_pivot = pd.pivot_table(
+    df,
+    index='Date',
+    columns='City',
+    values=['Temperature', 'Humidity'],
+    aggfunc={'Temperature': ['mean', 'max'], 'Humidity': 'mean'},
+    fill_value=0,
+    margins=True  # Adds totals
+)
+
+print("\nAdvanced Pivot Table (Multiple Aggregations):\n", advanced_pivot)
