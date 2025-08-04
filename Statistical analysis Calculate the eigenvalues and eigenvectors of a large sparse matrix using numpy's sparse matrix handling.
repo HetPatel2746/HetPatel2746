@@ -1,0 +1,14 @@
+import numpy as np
+from scipy.sparse import random
+from scipy.sparse.linalg import eigs
+
+
+density = 0.005
+A_sparse = random(size, size, density=density, format='csr')
+
+
+k = 5  # Number of eigenvalues/eigenvectors to compute
+eigenvalues, eigenvectors = eigs(A_sparse, k=k)
+
+print("Eigenvalues:\n", eigenvalues)
+print("\nEigenvectors shape:", eigenvectors.shape)
