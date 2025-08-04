@@ -1,0 +1,18 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.colors import LinearSegmentedColormap
+
+colors = ["#0000ff", "#00ff00", "#ffff00", "#ff0000"]  # Blue → Green → Yellow → Red
+custom_cmap = LinearSegmentedColormap.from_list("my_cmap", colors, N=256)
+
+
+x = np.linspace(-3, 3, 300)
+y = np.linspace(-3, 3, 300)
+X, Y = np.meshgrid(x, y)
+Z = np.sin(X**2 + Y**2)
+
+
+plt.imshow(Z, cmap=custom_cmap, extent=[-3, 3, -3, 3])
+plt.colorbar(label="Value")
+plt.title("Custom Colormap Example")
+plt.show()
