@@ -1,0 +1,42 @@
+import numpy as np
+
+def matrix_power(matrix, n):
+    """
+    Compute the power of a square matrix using exponentiation by squaring.
+    
+    Parameters:
+        matrix (ndarray): Square matrix (n x n)
+        n (int): Power (can be positive, zero, or negative)
+    
+    Returns:
+        ndarray: matrix raised to the power n
+    """
+    
+    matrix = np.array(matrix, dtype=float)
+    
+    
+    result = np.eye(matrix.shape[0])
+    
+    if n == 0:
+        return result
+    
+    
+    if n < 0:
+        matrix = np.linalg.inv(matrix)
+        n = -n
+    
+    while n > 0:
+        if n % 2 == 1:
+            result = np.dot(result, matrix)
+        matrix = np.dot(matrix, matrix)
+        n //= 2
+    
+    return result
+
+# Example Usage
+A = np.array([[1, 2],
+              [3, 4]])
+
+power = 3
+print(f"Matrix A:\n{A}")
+print(f"A^{power}:\n{matrix_power(A, power)}")
