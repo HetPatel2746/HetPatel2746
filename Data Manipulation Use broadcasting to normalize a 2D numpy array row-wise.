@@ -1,0 +1,17 @@
+import numpy as np
+
+# Create a 2D NumPy array
+arr = np.array([[1, 2, 3],
+                [4, 5, 6],
+                [7, 8, 9]], dtype=float)
+
+print("Original Array:\n", arr)
+
+# Row-wise normalization using broadcasting
+row_min = arr.min(axis=1, keepdims=True)   # shape (rows, 1)
+row_max = arr.max(axis=1, keepdims=True)   # shape (rows, 1)
+
+# Normalize each row to range [0, 1]
+normalized = (arr - row_min) / (row_max - row_min)
+
+print("\nRow-wise Normalized Array:\n", normalized)
